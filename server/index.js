@@ -23,18 +23,15 @@ app.get('/', (req, res) => {
 
 
 app.post('/register-reminder', (req, res) => {
-  const { chatId, text, date, time } = req.body;
+  const { chatId, text, date, time, deeplink } = req.body;
   if (!chatId || !text) {
     return res.status(400).json({ error: 'Brakuje pola chat_id lub text' });
   }
 
   bot.sendMessage(chatId, `
-  <b>Przypomnienie</b>
-  <b>Data:</b> ${date}
-  <b>Godzina:</b> ${time}
-  <b>Treść:</b> ${text}
-  <a href="https://www.remnote.com/w/67fbf740b49e999d43b2ad96/MW29HLXWhfI08pNn5">Link</a>
-    `, { parse_mode: 'HTML' })
+    ${text}
+    <a href="https://haron-iv.github.io/remnote-reminders-plugin/?deeplink=${deeplink}">Otwórz Remnote</a>
+  `, { parse_mode: 'HTML' })
 
   res.json({ success: true });
 });
