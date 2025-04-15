@@ -9,21 +9,21 @@ const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const bot = new TelegramBot(TELEGRAM_TOKEN, { polling: true });
 
 bot.onText(/\/start/, (msg) => {
-  bot.sendMessage(msg.chat.id, `Poprawnie skonfigurowano bota. Teraz w ustawieniach pluginu podaj ten chat id "${msg.chat.id}" jest to id nszego prywatnego czatu na który bede wysyłał Ci powaidomienia.`);
+  bot.sendMessage(msg.chat.id, `This is your chat id "${msg.chat.id}" you have to paste it to Remnote plugin settings. It is id of our chat, you will get notifications here.`);
 })
 
 app.use(cors())
 app.use(express.json());
 
 
-app.get('/', (req, res) => {
-  res.send(getHTML());
-  console.log(req, res)
-});
+// app.get('/', (req, res) => {
+//   res.send(getHTML());
+//   console.log(req, res)
+// });
 
 
 app.post('/register-reminder', (req, res) => {
-  const { chatId, text, date, time, deeplink } = req.body;
+  const { chatId, timestamp, reminders } = req.body;
   if (!chatId || !text) {
     return res.status(400).json({ error: 'Brakuje pola chat_id lub text' });
   }
@@ -36,26 +36,6 @@ app.post('/register-reminder', (req, res) => {
   res.json({ success: true });
 });
 
-const getHTML = () => {
-  return `<!DOCTYPE html>
-  <html>
-    <head>
-      <meta http-equiv="refresh" content="0; url=remnote://w/67fbf740b49e999d43b2ad96/MW29HLXWhfIt8pNn5">
-    </head>
-  </html>`
-}
-
-// Uruchomienie serwera
 app.listen(PORT, async () => {
-  console.log(`✅ Serwer działa na http://localhost:${PORT}`);
-
-  // const reposnse = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/getUpdates`, {
-  //   method: 'GET',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  // })
-
-  // const data = await reposnse.json()
-  // console.log(data)
+  console.log(`✅ server is running: http://localhost:${PORT}`);
 });

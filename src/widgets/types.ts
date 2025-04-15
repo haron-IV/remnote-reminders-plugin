@@ -13,4 +13,5 @@ export interface Reminder {
   text?: string
   remId: string
   timestamp: number
+  deeplink: string
 }

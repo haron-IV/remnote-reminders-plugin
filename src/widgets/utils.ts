@@ -9,11 +9,18 @@ import { RemindersData, Reminder } from './types'
 export const getDefaultTime = () =>
   new Date(Date.now() + 900000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 
+const getDeeplink = async (plugin: ReactRNPlugin, remId: string) => {
+  const knowledgeBase = await plugin.kb.getCurrentKnowledgeBaseData()
+  
+  return `remnote://w/${knowledgeBase._id}/${remId}`
+}
+
 export const watchReminders = async (plugin: ReactRNPlugin, powerup?: RemObject) => {
-  if (!powerup) return
+  const chatId = await plugin.settings.getSetting<string>("chatId")
+  if (!powerup || !chatId) return
 
   const remindersData: RemindersData = {
-    chatId: 7700263174, // TODO: get from config later
+    chatId: Number(chatId),
     timestamp: new Date().getTime(),
     reminders: [],
   }
@@ -31,6 +38,7 @@ export const watchReminders = async (plugin: ReactRNPlugin, powerup?: RemObject)
       time: await reminderRem?.getPowerupProperty(PowerupCode.RemindMe, SlotCode.Time),
       text: reminderRem.text?.toLocaleString(),
       remId: reminderRem._id,
+      deeplink: await getDeeplink(plugin, reminderRem._id),
       timestamp: new Date().getTime(),
     }
 
@@ -41,6 +49,7 @@ export const watchReminders = async (plugin: ReactRNPlugin, powerup?: RemObject)
       data.date = await reminderRem.getPowerupProperty(PowerupCode.RemindMe, SlotCode.Date)
       data.time = await reminderRem.getPowerupProperty(PowerupCode.RemindMe, SlotCode.Time)
       data.text = reminderRem.text?.toLocaleString()
+
       data.timestamp = new Date().getTime()
       updateReminder(reminderRem._id, data)
     })

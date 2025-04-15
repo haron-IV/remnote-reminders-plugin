@@ -1,8 +1,8 @@
 {
   "manifestVersion": 1,
-  "id": "plugin_template",
-  "name": "Plugin Template",
-  "author": "remnote",
+  "id": "notification-plugin",
+  "name": "Notifications",
+  "author": "Haron-IV",
   "repoUrl": "",
   "version": {
     "major": 0,
