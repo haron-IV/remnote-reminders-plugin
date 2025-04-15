@@ -20,6 +20,7 @@ const getDeeplink = async (plugin: ReactRNPlugin, remId: string) => {
 export const watchReminders = async (plugin: ReactRNPlugin, powerup?: RemObject) => {
   const chatId = await plugin.settings.getSetting<string>("chatId")
   if (!powerup || !chatId) return
+  
 
   const remindersData: RemindersData = {
     chatId: Number(chatId),
@@ -30,9 +31,12 @@ export const watchReminders = async (plugin: ReactRNPlugin, powerup?: RemObject)
   const updateReminder = debounce((remId: string, reminder: Reminder) => {
     const toUpdate = remindersData.reminders.findIndex((reminder) => reminder.remId === remId)
     if (toUpdate >= 0) remindersData.reminders[toUpdate] = reminder
+    console.log("API CALL")
     registerReminders(remindersData)
   }, 1000)
 
+
+  // TODO: no listeners for new items
   const reminderRems = await powerup?.taggedRem()
   reminderRems.forEach(async (reminderRem) => {
     const data: Reminder = {
@@ -46,8 +50,11 @@ export const watchReminders = async (plugin: ReactRNPlugin, powerup?: RemObject)
 
     remindersData.reminders.push(data) // initialize data
 
+    console.log("Registering reminder", remindersData)
+
     //TODO: remove this event afterwards
     plugin.event.addListener(AppEvents.RemChanged, reminderRem._id, async (event) => {
+      console.log("elo")
       data.date = await reminderRem.getPowerupProperty(PowerupCode.RemindMe, SlotCode.Date)
       data.time = await reminderRem.getPowerupProperty(PowerupCode.RemindMe, SlotCode.Time)
       data.text = reminderRem.text?.toLocaleString()

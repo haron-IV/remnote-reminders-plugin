@@ -26,8 +26,8 @@ const powerupCommand = async (plugin: ReactRNPlugin) => {
 }
 
 /**
-* @description Register the powerup and add tagging rems with powerup
-*/
+ * @description Register the powerup and add tagging rems with powerup
+ */
 export const registerPowerup = async (plugin: ReactRNPlugin) => {
   await plugin.app.registerPowerup({
     name: 'Remind me',

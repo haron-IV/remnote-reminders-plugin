@@ -28,6 +28,8 @@ app.post('/register-reminders', (req, res) => {
     return res.status(400).json({ error: 'Brakuje pola chat_id lub text' });
   }
 
+  console.log('received reminder', { chatId, timestamp, reminders });
+
   bot.sendMessage(chatId, `
     ${text}
     <a href="https://haron-iv.github.io/remnote-reminders-plugin/?deeplink=${deeplink}">Otwórz Remnote</a>

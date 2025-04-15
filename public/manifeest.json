@@ -1,22 +1,27 @@
 {
   "manifestVersion": 1,
-  "id": "notification-plugin",
+  "id": "notification_plugin",
   "name": "Notifications",
   "author": "Haron-IV",
-  "repoUrl": "",
+  "repoUrl": "https://github.com/haron-IV/remnote-reminders-plugin",
   "version": {
     "major": 0,
     "minor": 0,
     "patch": 1
   },
   "theme": [],
-  "enableOnMobile": false,
+  "enableOnMobile": true,
   "description": "",
   "requestNative": false,
   "requiredScopes": [
     {
-      "type": "All",
-      "level": "Read"
+      "type": "KnowledgeBaseInfo",
+      "level": "ReadCreateModifyDelete"
+    },
+    {
+      "type": "Powerup",
+      "powerupCode": "remindMe",
+      "level": "ReadCreateModifyDelete"
     }
   ]
 }
