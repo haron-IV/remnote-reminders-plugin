@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirection to Remnote</title>
+    <script type="text/javascript">
+      const remnoteUrl = window.location.href.split("=")[1]
+      window.location.href = `remnote://w/${remnoteUrl}`
+      const link = document.querySelector("#redirection-url")
+      link.href = `remnote://w/${remnoteUrl}`
+    </script>
+    <style>
+      body {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background-color: #232329;
+        color: #fff;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+          Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 20px;
+      }
+      a {
+        padding: 10px 40px;
+        background-color: #1b1b1d;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        color: #fff;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <p>If redirection didn't happen automatically, click this button</p>
+    <a id="redirection-url"><span>Open Remnote</span></a>
+  </body>
+</html>

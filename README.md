@@ -7,3 +7,6 @@ Simple plugin to set reminders and get notifications from Remnote.
 <!-- TODO: Describe usage -->
 
 <!-- ignore-after -->
+
+
+index.html - this is simple html site that redirects directly to rem in the application
