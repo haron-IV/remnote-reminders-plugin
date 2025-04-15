@@ -24,15 +24,12 @@ app.use(express.json());
 
 app.post('/register-reminders', (req, res) => {
   const { chatId, timestamp, reminders } = req.body;
-  if (!chatId || !text) {
-    return res.status(400).json({ error: 'Brakuje pola chat_id lub text' });
-  }
 
   console.log('received reminder', { chatId, timestamp, reminders });
 
   bot.sendMessage(chatId, `
-    ${text}
-    <a href="https://haron-iv.github.io/remnote-reminders-plugin/?deeplink=${deeplink}">Otwórz Remnote</a>
+    ${reminders[0].text}
+    <a href="https://haron-iv.github.io/remnote-reminders-plugin/pwa/?deeplink=${reminders[0].deeplink}">Otwórz Remnote</a>
   `, { parse_mode: 'HTML' })
 
   res.json({ success: true });

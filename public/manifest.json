@@ -15,13 +15,13 @@
   "requestNative": false,
   "requiredScopes": [
     {
-      "type": "KnowledgeBaseInfo",
+      "type": "All",
       "level": "ReadCreateModifyDelete"
     },
     {
-      "type": "Powerup",
-      "powerupCode": "remindMe",
-      "level": "ReadCreateModifyDelete"
+      "type": "KnowledgeBaseInfo",
+      "level": "Read"
     }
   ]
 }
+ 

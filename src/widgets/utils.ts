@@ -11,7 +11,11 @@ export const getDefaultTime = () =>
   new Date(Date.now() + 900000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 
 const getDeeplink = async (plugin: ReactRNPlugin, remId: string) => {
-  const knowledgeBase = await plugin.kb.getCurrentKnowledgeBaseData()
+  // const knowledgeBase = await plugin.kb.getCurrentKnowledgeBaseData()
+  const knowledgeBase = {_id: '67fbf740b49e999d43b2ad96'}
+  
+  //TODO: this throws error - looks like something with permissions
+  console.log('Knowledge base', knowledgeBase)
   return `remnote://w/${knowledgeBase._id}/${remId}`
 }
 
