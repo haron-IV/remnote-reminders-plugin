@@ -1,0 +1,21 @@
+{
+  "author": "haron-IV",
+  "name": "reminders",
+  "description": "Simple plugin to set reminders and get notifications from Remnote.",
+  "enableOnMobile": true,
+  "id": "haron-IV-p8j18vs",
+  "manifestVersion": 1,
+  "repoUrl": "https://github.com/remnoteio/remnote-plugin-template-react",
+  "version": {
+    "major": 0,
+    "minor": 0,
+    "patch": 1
+  },
+  "requestNative": false,
+  "requiredScopes": [
+    {
+      "type": "All",
+      "level": "Read"
+    }
+  ]
+}
