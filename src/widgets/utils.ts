@@ -3,6 +3,7 @@ import { AppEvents, ReactRNPlugin } from '@remnote/plugin-sdk'
 import { PowerupCode, SlotCode } from './constants'
 import debounce from 'lodash.debounce'
 import { RemindersData, Reminder } from './types'
+import { registerReminders } from './services'
 /**
  * @description Get default time for reminder. It is 15 minutes from now (900000 milliseconds)
  */
@@ -11,10 +12,11 @@ export const getDefaultTime = () =>
 
 const getDeeplink = async (plugin: ReactRNPlugin, remId: string) => {
   const knowledgeBase = await plugin.kb.getCurrentKnowledgeBaseData()
-  
   return `remnote://w/${knowledgeBase._id}/${remId}`
 }
 
+
+//TODO: refactorize thi
 export const watchReminders = async (plugin: ReactRNPlugin, powerup?: RemObject) => {
   const chatId = await plugin.settings.getSetting<string>("chatId")
   if (!powerup || !chatId) return
@@ -28,7 +30,7 @@ export const watchReminders = async (plugin: ReactRNPlugin, powerup?: RemObject)
   const updateReminder = debounce((remId: string, reminder: Reminder) => {
     const toUpdate = remindersData.reminders.findIndex((reminder) => reminder.remId === remId)
     if (toUpdate >= 0) remindersData.reminders[toUpdate] = reminder
-    console.log('Updated reminder- API CALL', reminder)
+    registerReminders(remindersData)
   }, 1000)
 
   const reminderRems = await powerup?.taggedRem()

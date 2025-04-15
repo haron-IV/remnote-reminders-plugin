@@ -22,7 +22,7 @@ app.use(express.json());
 // });
 
 
-app.post('/register-reminder', (req, res) => {
+app.post('/register-reminders', (req, res) => {
   const { chatId, timestamp, reminders } = req.body;
   if (!chatId || !text) {
     return res.status(400).json({ error: 'Brakuje pola chat_id lub text' });

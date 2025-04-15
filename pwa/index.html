@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <title>Redirection to Remnote</title>
     <script type="text/javascript">
-      const remnoteUrl = window.location.href.split("=")[1]
-      window.location.href = `remnote://w/${remnoteUrl}`
+      const remnoteDeeplink = window.location.href.split("=")[1]
+      window.location.href = remnoteDeeplink
       const link = document.querySelector("#redirection-url")
-      link.href = `remnote://w/${remnoteUrl}`
+      link.href = remnoteDeeplink
     </script>
     <style>
       body {
