@@ -6,17 +6,20 @@
   "engines": {
     "node": ">=v22.14.0"
   },
+  "type": "module",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "mongo": "brew services start mongodb-community@8.0"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "mongoose": "^8.13.2",
     "node-telegram-bot-api": "^0.66.0"
-  },
-  "devDependencies": {}
+  }
 }
