@@ -1,12 +1,14 @@
 import { PropertyType, ReactRNPlugin, SelectionType } from '@remnote/plugin-sdk'
 import { PowerupCode, SlotCode } from './constants'
 import { RemObject } from '@remnote/plugin-sdk/dist/name_spaces/rem'
-import { getDefaultTime } from './utils'
+import { addListenerToPowerupRem, getDefaultTime, remindersData } from './utils'
 
-const addPowerup = (rem: RemObject, powerup: PowerupCode, today?: string) => {
+const addPowerup = (plugin: ReactRNPlugin, rem: RemObject, powerup: PowerupCode, today?: string) => {
   rem.addPowerup(powerup)
   rem.setPowerupProperty(PowerupCode.RemindMe, SlotCode.Date, today ? [today] : [])
   rem.setPowerupProperty(PowerupCode.RemindMe, SlotCode.Time, [getDefaultTime()])
+
+  addListenerToPowerupRem(plugin, rem, remindersData)
 }
 
 const powerupCommand = async (plugin: ReactRNPlugin) => {
@@ -15,13 +17,13 @@ const powerupCommand = async (plugin: ReactRNPlugin) => {
 
   if (selection.type === SelectionType.Rem) {
     const rems = (await plugin.rem.findMany(selection.remIds)) || []
-    rems.forEach((rem) => addPowerup(rem, PowerupCode.RemindMe))
+    rems.forEach((rem) => addPowerup(plugin, rem, PowerupCode.RemindMe))
   } else {
     const rem = await plugin.rem.findOne(selection.remId)
     if (!rem) return
 
     const today = await plugin.date.getTodaysDoc()
-    addPowerup(rem, PowerupCode.RemindMe, today?.text?.toString())
+    addPowerup(plugin, rem, PowerupCode.RemindMe, today?.text?.toString())
   }
 }
 
