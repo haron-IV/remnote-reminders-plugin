@@ -32,5 +32,5 @@ index.html - this is simple html site that redirects directly to rem in the appl
 - [ ] remove todos
 - [ ] check licenses 
 - [ ] `src/widget` move commands outside -> look at documentation 
-- [ ] change the name of the directory `pwa`
+- [x] change the name of the directory `pwa`
 - [ ] add typescipt for server side

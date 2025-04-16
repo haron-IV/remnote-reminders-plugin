@@ -39,9 +39,10 @@ app.post('/register-reminders', async (req, res) => {
 
   await newReminder.save();
 
+  // the url is url for github pages and the index.html that is inside this repo under /redirection-page directory
   bot.sendMessage(chatId, `
     ${reminders[0].text}
-    <a href="https://haron-iv.github.io/remnote-reminders-plugin/pwa/?deeplink=${reminders[0].deeplink}">Otwórz Remnote</a>
+    <a href="https://haron-iv.github.io/remnote-reminders-plugin/redirection-page/?deeplink=${reminders[0].deeplink}">Otwórz Remnote</a>
   `, { parse_mode: 'HTML' })
 
   res.json({ success: true });

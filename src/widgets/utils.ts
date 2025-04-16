@@ -11,16 +11,14 @@ export const getDefaultTime = () =>
   new Date(Date.now() + 900000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 
 const getDeeplink = async (plugin: ReactRNPlugin, remId: string) => {
-  // const knowledgeBase = await plugin.kb.getCurrentKnowledgeBaseData()
-  const knowledgeBase = {_id: '67fbf740b49e999d43b2ad96'}
-  
-  //TODO: this throws error - looks like something with permissions
-  console.log('Knowledge base', knowledgeBase)
+  const knowledgeBase = await plugin.kb.getCurrentKnowledgeBaseData()
+  if (!knowledgeBase || !remId) return ''
+
   return `remnote://w/${knowledgeBase._id}/${remId}`
 }
 
 
-//TODO: refactorize thi
+//TODO: refactorize this
 export const watchReminders = async (plugin: ReactRNPlugin, powerup?: RemObject) => {
   const chatId = await plugin.settings.getSetting<string>("chatId")
   if (!powerup || !chatId) return
@@ -56,9 +54,8 @@ export const watchReminders = async (plugin: ReactRNPlugin, powerup?: RemObject)
 
     console.log("Registering reminder", remindersData)
 
-    //TODO: remove this event afterwards
+    //TODO: remove this event afterwards (clear listeners)
     plugin.event.addListener(AppEvents.RemChanged, reminderRem._id, async (event) => {
-      console.log("elo")
       data.date = await reminderRem.getPowerupProperty(PowerupCode.RemindMe, SlotCode.Date)
       data.time = await reminderRem.getPowerupProperty(PowerupCode.RemindMe, SlotCode.Time)
       data.text = reminderRem.text?.toLocaleString()
