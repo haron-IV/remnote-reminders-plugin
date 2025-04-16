@@ -1,14 +1,21 @@
 import { PropertyType, ReactRNPlugin, SelectionType } from '@remnote/plugin-sdk'
-import { PowerupCode, SlotCode } from './constants'
 import { RemObject } from '@remnote/plugin-sdk/dist/name_spaces/rem'
-import { addListenerToPowerupRem, getDefaultTime, remindersData } from './utils'
+import { PowerupCode, SlotCode } from '../../shared/constants'
+import { getDefaultTime } from '../utils/utils'
+import { addListenerToPowerupRem } from './addListenerToPowerupRem'
+import { getSettings } from '../settings/settings'
 
-const addPowerup = (plugin: ReactRNPlugin, rem: RemObject, powerup: PowerupCode, today?: string) => {
+const addPowerup = (
+  plugin: ReactRNPlugin,
+  rem: RemObject,
+  powerup: PowerupCode,
+  today?: string
+) => {
   rem.addPowerup(powerup)
   rem.setPowerupProperty(PowerupCode.RemindMe, SlotCode.Date, today ? [today] : [])
   rem.setPowerupProperty(PowerupCode.RemindMe, SlotCode.Time, [getDefaultTime()])
 
-  addListenerToPowerupRem(plugin, rem, remindersData)
+  addListenerToPowerupRem(plugin, rem)
 }
 
 const powerupCommand = async (plugin: ReactRNPlugin) => {
@@ -31,6 +38,8 @@ const powerupCommand = async (plugin: ReactRNPlugin) => {
  * @description Register the powerup and add tagging rems with powerup
  */
 export const registerPowerup = async (plugin: ReactRNPlugin) => {
+  const { chatId } = await getSettings(plugin)
+
   await plugin.app.registerPowerup({
     name: 'Remind me',
     code: PowerupCode.RemindMe,
@@ -49,7 +58,13 @@ export const registerPowerup = async (plugin: ReactRNPlugin) => {
 
   await plugin.app.registerCommand({
     id: `${PowerupCode.RemindMe}-command`,
-    name: 'Remind me',
-    action: async () => await powerupCommand(plugin),
+    name: `Remind me ${chatId ? '' : '<-- it will not work. Please set chatId in settings'}`,
+    action: async () => {
+      if (!chatId) {
+        await plugin.app.toast('Please, set chatId in the plugin settings.')
+        return
+      }
+      await powerupCommand(plugin)
+    },
   })
 }
