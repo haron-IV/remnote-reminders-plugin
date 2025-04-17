@@ -1,10 +1,9 @@
 ---
-name: Feature request
+name: Feature
 about: Suggest a feature
-title: "[FEATURE]"
-labels: ''
-assignees: bjsi
-
+title: ""
+labels: 'Feature'
+assignees: 
 ---
 
 **Is your feature request related to a problem? Please describe.**
