@@ -18,8 +18,18 @@ export const getDeeplink = async (plugin: ReactRNPlugin, remId: string) => {
   return `remnote://w/${knowledgeBase._id}/${remId}`
 }
 
-export const updateReminder = debounce((remId: string, reminder: Reminder) => {
-  const toUpdate = storage.remindersData.reminders.findIndex((reminder) => reminder.remId === remId)
-  if (toUpdate >= 0) storage.remindersData.reminders[toUpdate] = reminder
-  registerReminders(storage.remindersData)
+export const updateReminder = debounce((remId: string, reminder: Reminder, isDeleted?: boolean) => {
+  const toUpdateIndex = storage.remindersData.reminders.findIndex(
+    (reminder) => reminder.remId === remId
+  )
+
+  if (toUpdateIndex >= 0) {
+    if (isDeleted) {
+      storage.remindersData.reminders = storage.remindersData.reminders.filter((_, index) => {
+        return index !== toUpdateIndex
+      })
+    } else storage.remindersData.reminders[toUpdateIndex] = reminder
+
+    registerReminders(storage.remindersData)
+  }
 }, SEND_REMINDERS_TO_API_DEBOUNCE_MS)

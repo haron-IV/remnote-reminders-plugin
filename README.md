@@ -38,7 +38,20 @@ structure:
 ```
 ---
 
+
+branch names:
+`type/number-name`
+`feat/#2/add-rending-reminders`
+
 index.html - this is simple html site that redirects directly to rem in the application
+
+
+---
+
+# Functionalities
+* add reminder to single rem
+* add reminder to selected rems
+* removing selected rems also removes reminders
 
 # TODO
 - [x] Update manifest
@@ -50,3 +63,11 @@ index.html - this is simple html site that redirects directly to rem in the appl
 - [ ] add typescipt for server side
 - [ ] remove `local-notes.md` afterwards
 - [ ] `core/services` add dev / prod variables for urls
+- [ ] text is not updated
+- [ ] deleted in selection not working | there is no date / time as well sometimes
+- [ ] handle delete then ctrl - z
+- [ ] removing only rem tag should remove reminder
+- [ ] refactorize path `./index` export items
+- [ ] when opening powerup and remove selected items from the list it will not remove items properly
+
+- [ ] ASK: comments - ask about them in the mr

@@ -15,3 +15,9 @@ export interface Reminder {
   timestamp: number
   deeplink: string
 }
+
+declare global {
+  interface Array<T> {
+    removeItems(indexesToRemove: number[], arr: T[]): void
+  }
+}
