@@ -1,12 +1,8 @@
 ---
-name: Feature
+name: Feature Back End
 title: "[Feature]: "
-labels: ["Feature", "back-end"]
+labels: Feature, back-end
+---
 
-body:
-  - type: textarea
-    id: steps
-    attributes:
-      label: ✅ Steps
-      value: |
-        - [ ] elaborate...
+## Steps
+- [ ] elaborate...

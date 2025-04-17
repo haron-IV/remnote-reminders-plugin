@@ -1,12 +1,8 @@
 ---
-name: Refactor
-title: "[Refavtor]: "
-labels: ["Refactor", "back-end"]
+name: Refactor Back End
+title: "[Refactor]: "
+labels: Refactor, back-end
+---
 
-body:
-  - type: textarea
-    id: steps
-    attributes:
-      label: ✅ Steps
-      value: |
-        - [ ] elaborate...
+## Steps
+- [ ] elaborate...
