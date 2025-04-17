@@ -2,5 +2,11 @@
 name: Refactor
 title: "[Refavtor]: "
 labels: ["Refactor", "front-end"]
-assignees: 
----
+
+body:
+  - type: textarea
+    id: steps
+    attributes:
+      label: ✅ Steps
+      value: |
+        - [ ] elaborate...

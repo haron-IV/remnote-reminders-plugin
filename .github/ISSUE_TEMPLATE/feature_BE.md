@@ -2,5 +2,11 @@
 name: Feature
 title: "[Feature]: "
 labels: ["Feature", "back-end"]
-assignees: 
----
+
+body:
+  - type: textarea
+    id: steps
+    attributes:
+      label: ✅ Steps
+      value: |
+        - [ ] elaborate...
