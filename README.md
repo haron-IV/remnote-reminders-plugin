@@ -22,15 +22,31 @@ stop it:
 
 
 
+---
+structure:
+```
+  widgets/
+    core/         <--- core plugin logic 
+      component/  <--- core logic components
+      services/   <--- api calls, etc.
+      settings/   <--- plugin settings configuration
+      utils/      <--- utilities
+    shared/       <--- Shared components, settings, utils, etc.
+    UI/           <--- UI layer of the plugin
+    
 
+```
+---
 
 index.html - this is simple html site that redirects directly to rem in the application
 
 # TODO
-- [ ] Update manifest
+- [x] Update manifest
 - [ ] Add suppoert for AM/PM hours
 - [ ] remove todos
 - [ ] check licenses 
-- [ ] `src/widget` move commands outside -> look at documentation 
+- [x] `src/widget` move commands outside -> look at documentation 
 - [x] change the name of the directory `pwa`
 - [ ] add typescipt for server side
+- [ ] remove `local-notes.md` afterwards
+- [ ] `core/services` add dev / prod variables for urls

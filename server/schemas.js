@@ -1,4 +1,4 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 const ReminderSchema = new Schema({
   date: { type: String, required: false },
@@ -10,7 +10,7 @@ const ReminderSchema = new Schema({
 });
 
 const RemindersDataSchema = new Schema({
-  chatId: { type: Number, required: true, }, 
+  chatId: { type: Number, required: true, },
   timestamp: { type: Number, required: true },
   reminders: [ReminderSchema]
 });

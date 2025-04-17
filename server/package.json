@@ -8,8 +8,7 @@
   },
   "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "mongo": "brew services start mongodb-community@8.0"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",

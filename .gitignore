@@ -5,3 +5,5 @@ dist-ssr
 *.local
 *.zip
 /server/.env
+
+local-notes.md
