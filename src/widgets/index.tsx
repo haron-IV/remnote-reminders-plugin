@@ -3,7 +3,7 @@ import { PowerupCode } from './shared/constants'
 import { registerPowerup } from './core/components/registerPowerup'
 import { registerSettings } from './core/settings/settings'
 import { initRemindersData } from './shared/storage'
-import { watchReminders } from './core/components/watchReminders'
+import { watchRemRemindersOnLoad } from './core/components/watchRemRemindersOnLoad'
 import '../style.css' //TODO: to remove
 import '../App.css' //TODO: to remove
 
@@ -18,7 +18,7 @@ async function onActivate(plugin: ReactRNPlugin) {
   })
 
   const powerup = await plugin.powerup.getPowerupByCode(PowerupCode.RemindMe)
-  await watchReminders(plugin, powerup)
+  await watchRemRemindersOnLoad(plugin, powerup)
 }
 
 async function onDeactivate(_: ReactRNPlugin) {

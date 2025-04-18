@@ -5,15 +5,15 @@ import { getDefaultTime } from '../utils/utils'
 import { addListenerToPowerupRem } from './addListenerToPowerupRem'
 import { getSettings } from '../settings/settings'
 
-const addPowerup = (
+const addPowerup = async (
   plugin: ReactRNPlugin,
   rem: RemObject,
   powerup: PowerupCode,
   today?: string
 ) => {
-  rem.addPowerup(powerup)
-  rem.setPowerupProperty(PowerupCode.RemindMe, SlotCode.Date, today ? [today] : [])
-  rem.setPowerupProperty(PowerupCode.RemindMe, SlotCode.Time, [getDefaultTime()])
+  await rem.addPowerup(powerup)
+  await rem.setPowerupProperty(PowerupCode.RemindMe, SlotCode.Date, today ? [today] : [])
+  await rem.setPowerupProperty(PowerupCode.RemindMe, SlotCode.Time, [getDefaultTime()])
 
   addListenerToPowerupRem(plugin, rem)
 }
@@ -24,13 +24,13 @@ const powerupCommand = async (plugin: ReactRNPlugin) => {
 
   if (selection.type === SelectionType.Rem) {
     const rems = (await plugin.rem.findMany(selection.remIds)) || []
-    rems.forEach((rem) => addPowerup(plugin, rem, PowerupCode.RemindMe))
+    rems.forEach(async (rem) => await addPowerup(plugin, rem, PowerupCode.RemindMe))
   } else {
     const rem = await plugin.rem.findOne(selection.remId)
     if (!rem) return
 
     const today = await plugin.date.getTodaysDoc()
-    addPowerup(plugin, rem, PowerupCode.RemindMe, today?.text?.toString())
+    await addPowerup(plugin, rem, PowerupCode.RemindMe, today?.text?.toString())
   }
 }
 

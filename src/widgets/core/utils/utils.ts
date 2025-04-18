@@ -1,7 +1,6 @@
 import { ReactRNPlugin } from '@remnote/plugin-sdk'
 import debounce from 'lodash.debounce'
 import { SEND_REMINDERS_TO_API_DEBOUNCE_MS } from '../../shared/constants'
-import type { Reminder } from '../../shared/types'
 import { registerReminders } from '../services/services'
 import { storage } from '../../shared/storage'
 /**
@@ -18,8 +17,20 @@ export const getDeeplink = async (plugin: ReactRNPlugin, remId: string) => {
   return `remnote://w/${knowledgeBase._id}/${remId}`
 }
 
-export const updateReminder = debounce((remId: string, reminder: Reminder) => {
-  const toUpdate = storage.remindersData.reminders.findIndex((reminder) => reminder.remId === remId)
-  if (toUpdate >= 0) storage.remindersData.reminders[toUpdate] = reminder
-  registerReminders(storage.remindersData)
+export const updateReminder = debounce(async (remId: string) => {
+  const toUpdateIndex = storage.remindersData.reminders.findIndex(
+    (reminder) => reminder.remId === remId
+  )
+
+  //TODO: has to be cleared (the Set) because it is not
+  // remove removed reminders from storage
+  if (storage.removedReminders.size > 0)
+    storage.remindersData.reminders = storage.remindersData.reminders.filter((reminder) => {
+      if (!storage.removedReminders.has(reminder.remId)) return true
+    })
+
+  // TODO: get status of the response and then clear the Set
+  if (toUpdateIndex >= 0) await registerReminders(storage.remindersData)
+
+  storage.removedReminders.clear()
 }, SEND_REMINDERS_TO_API_DEBOUNCE_MS)

@@ -20,14 +20,22 @@ export const addListenerToPowerupRem = async (plugin: ReactRNPlugin, reminderRem
   }
 
   storage.remindersData.reminders.push(data) // initialize reminder data
-  updateReminder(reminderRem._id, data) // will send over to api if will not be debounced by user change
+  updateReminder(reminderRem._id) // will send over to api if will not be debounced by user change
 
   plugin.event.addListener(AppEvents.RemChanged, reminderRem._id, async (event) => {
-    data.date = await reminderRem.getPowerupProperty(PowerupCode.RemindMe, SlotCode.Date)
-    data.time = await reminderRem.getPowerupProperty(PowerupCode.RemindMe, SlotCode.Time)
-    data.text = reminderRem.text?.toLocaleString()
-    data.timestamp = new Date().getTime()
+    const hasPowerup = await reminderRem?.hasPowerup(PowerupCode.RemindMe)
+    const isDeleted = !(await plugin.rem.findOne(reminderRem._id))
 
-    updateReminder(reminderRem._id, data)
+    if (isDeleted || !hasPowerup) {
+      plugin.event.removeListener(AppEvents.RemChanged, reminderRem._id)
+      storage.removedReminders.add(data.remId)
+    } else {
+      data.date = await reminderRem.getPowerupProperty(PowerupCode.RemindMe, SlotCode.Date)
+      data.time = await reminderRem.getPowerupProperty(PowerupCode.RemindMe, SlotCode.Time)
+      data.text = reminderRem.text?.toLocaleString()
+      data.timestamp = new Date().getTime()
+    }
+
+    await updateReminder(reminderRem._id)
   })
 }
