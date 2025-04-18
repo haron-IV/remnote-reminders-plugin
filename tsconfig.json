@@ -17,5 +17,5 @@
       "module": "CommonJS"
     }
   },
-  "include": ["src", "public/sw.js"]
+  "include": ["src"]
 }

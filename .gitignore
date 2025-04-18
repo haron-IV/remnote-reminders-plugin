@@ -7,3 +7,6 @@ dist-ssr
 /server/.env
 
 local-notes.md
+
+.env
+.env.*
