@@ -54,7 +54,6 @@ export const registerPowerup = async (plugin: ReactRNPlugin) => {
         { code: SlotCode.Time, name: 'Time', propertyType: PropertyType.TEXT },
       ],
     },
-
   })
 
   await plugin.app.registerCommand({

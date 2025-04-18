@@ -4,7 +4,7 @@ import { addListenerToPowerupRem } from './addListenerToPowerupRem'
 
 /**
  * @description It adds listeners for all rems that have the powerup. It runs only once at load
-*/
+ */
 export const watchRemRemindersOnLoad = async (plugin: ReactRNPlugin, powerup?: RemObject) => {
   if (!powerup) return
 
