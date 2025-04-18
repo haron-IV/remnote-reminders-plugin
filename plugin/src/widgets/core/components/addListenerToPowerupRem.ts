@@ -1,9 +1,9 @@
 import { AppEvents, ReactRNPlugin } from '@remnote/plugin-sdk'
 import { RemObject } from '@remnote/plugin-sdk/dist/name_spaces/rem'
-import type { Reminder } from '../../shared/types'
 import { PowerupCode, SlotCode } from '../../shared/constants'
 import { getDeeplink, updateReminder } from '../utils/utils'
 import { storage } from '../../shared/storage'
+import type { Reminder } from '@remnote-reminders-plugin/shared'
 
 /**
  * @description It adds listener for the rem you are passing

@@ -1,14 +1,17 @@
-export interface Reminder {
-  date?: string;
-  deeplink: string;
-  remId: string;
-  text?: string;
-  time?: string;
-  timestamp: number;
-}
-
+/**
+ * Used for storing all the reminders. This schema is also sended to the server
+ */
 export interface RemindersData {
   chatId?: number;
-  reminders: Reminder[];
   timestamp?: number;
+  reminders: Reminder[];
+}
+
+export interface Reminder {
+  date?: string;
+  time?: string;
+  text?: string;
+  remId: string;
+  timestamp: number;
+  deeplink: string;
 }

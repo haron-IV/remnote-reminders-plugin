@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "remnote-reminders-plugin-server",
   "version": "1.0.0",
   "description": "",
   "engines": {

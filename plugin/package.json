@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "notification-plugin",
+  "name": "remnote-reminders-plugin",
   "version": "0.0.1",
   "license": "MIT",
   "engines": {
