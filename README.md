@@ -57,6 +57,10 @@ index.html - this is simple html site that redirects directly to rem in the appl
 - add reminder to selected rems
 - removing selected rems also removes reminders
 
+# Known issues
+
+`cmd+z` doesn't work - it will not remove your reminder from server unless you reload the app, or update it manually.
+
 # TODO
 
 - [x] Update manifest
@@ -70,14 +74,13 @@ index.html - this is simple html site that redirects directly to rem in the appl
 - [ ] `core/services` add dev / prod variables for urls
 - [ ] text is not updated
 - [ ] deleted in selection not working | there is no date / time as well sometimes
-- [ ] handle delete then ctrl - z
-- [ ] removing only rem tag should remove reminder
+- [x] removing only rem tag should remove reminder
 - [ ] refactorize path `./index` export items
-- [ ] when opening powerup and remove selected items from the list it will not remove items properly
+- [x] when opening powerup and remove selected items from the list it will not remove items properly
 - [ ] ASK: comments - ask about them in the mr
 
 ---
 
 Current work
 
-- [ ] Fix removing item when selected form rem revie
+- [ ] handle delete then ctrl - z

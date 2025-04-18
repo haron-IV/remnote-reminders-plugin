@@ -1,7 +1,6 @@
 import { ReactRNPlugin } from '@remnote/plugin-sdk'
 import debounce from 'lodash.debounce'
 import { SEND_REMINDERS_TO_API_DEBOUNCE_MS } from '../../shared/constants'
-import type { Reminder } from '../../shared/types'
 import { registerReminders } from '../services/services'
 import { storage } from '../../shared/storage'
 /**

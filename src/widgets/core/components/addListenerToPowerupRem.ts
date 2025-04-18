@@ -23,10 +23,10 @@ export const addListenerToPowerupRem = async (plugin: ReactRNPlugin, reminderRem
   updateReminder(reminderRem._id) // will send over to api if will not be debounced by user change
 
   plugin.event.addListener(AppEvents.RemChanged, reminderRem._id, async (event) => {
+    const hasPowerup = await reminderRem?.hasPowerup(PowerupCode.RemindMe)
     const isDeleted = !(await plugin.rem.findOne(reminderRem._id))
 
-    if (isDeleted) {
-      // ASK: is it needed? I think it's not because the rem is removed already
+    if (isDeleted || !hasPowerup) {
       plugin.event.removeListener(AppEvents.RemChanged, reminderRem._id)
       storage.removedReminders.add(data.remId)
     } else {
