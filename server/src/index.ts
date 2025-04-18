@@ -1,13 +1,15 @@
 import * as dotenv from 'dotenv'
 dotenv.config()
-import express from 'express'
-import cors from 'cors'
-import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
+import cors from 'cors'
+import express from 'express'
+import mongoose from 'mongoose'
 import TelegramBot from 'node-telegram-bot-api'
-import { RemindersModel } from './schemas.js'
 
-const PORT = process.env.PORT || 3000
+import { RemindersModel } from './schemas.js'
+import { RegisterRemindersRequest, RegisterRemindersResponse } from './types.js'
+
+const PORT = process.env.PORT ?? 3000
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN
 const MONGODB_URI = process.env.MONGODB_URI
 
@@ -22,46 +24,60 @@ const init = () => {
 
   mongoose
     .connect(MONGODB_URI)
-    .then(() => console.log('MongoDB connected'))
-    .catch((err) => console.log('MongoDB connection error:', err))
+    .then(() => {
+      console.log('MongoDB connected')
+    })
+    .catch((err: unknown) => {
+      console.log('MongoDB connection error:', err)
+    })
 
   const bot = new TelegramBot(TELEGRAM_TOKEN, { polling: true })
 
-  bot.onText(/\/start/, (msg: any) => {
-    bot.sendMessage(
+  bot.onText(/\/start/, (msg: TelegramBot.Message) => {
+    void bot.sendMessage(
       msg.chat.id,
-      `This is your chat id "${msg.chat.id}" you have to paste it to Remnote plugin settings. It is id of our chat, you will get notifications here.`
+      `This is your chat id "${String(msg.chat.id)}" you have to paste it to Remnote plugin settings. It is id of our chat, you will get notifications here.`
     )
   })
 
-  app.post('/register-reminders', async (req, res) => {
-    const { chatId, timestamp, reminders } = req.body
+  app.post(
+    '/register-reminders',
+    async (req: RegisterRemindersRequest, res: RegisterRemindersResponse) => {
+      try {
+        const { chatId, reminders, timestamp } = req.body
 
-    console.log('received reminder', { chatId, timestamp, reminders })
+        console.log('received reminder', { chatId, reminders, timestamp })
 
-    const newReminder = new RemindersModel({
-      chatId,
-      timestamp,
-      reminders,
-    })
+        if (!chatId) throw new Error('chatId not specified')
 
-    await newReminder.save()
+        const newReminder = new RemindersModel({
+          chatId,
+          reminders,
+          timestamp,
+        })
 
-    // the url is url for github pages and the index.html that is inside this repo under /redirection-page directory
-    bot.sendMessage(
-      chatId,
-      `
-      ${reminders[0].text}
-      <a href="https://haron-iv.github.io/remnote-reminders-plugin/redirection-page/?deeplink=${reminders[0].deeplink}">Otwórz Remnote</a>
-    `,
-      { parse_mode: 'HTML' }
-    )
+        await newReminder.save()
 
-    res.json({ success: true })
-  })
+        // the url is url for github pages and the index.html that is inside this repo under /redirection-page directory
+        await bot.sendMessage(
+          chatId,
+          `
+        ${String(reminders[0].text)}
+        <a href="https://haron-iv.github.io/remnote-reminders-plugin/redirection-page/?deeplink=${reminders[0].deeplink}">Otwórz Remnote</a>
+      `,
+          { parse_mode: 'HTML' }
+        )
 
-  app.listen(PORT, async () => {
-    console.log(`✅ server is running: http://localhost:${PORT}`)
+        res.status(200).send(req.body)
+      } catch (error: unknown) {
+        console.error('Error saving reminders:', error)
+        // return res.status(500).json({ error: (error as Error).message, success: false })
+      }
+    }
+  )
+
+  app.listen(PORT, () => {
+    console.log(`✅ server is running: http://localhost:${String(PORT)}`)
   })
 }
 
