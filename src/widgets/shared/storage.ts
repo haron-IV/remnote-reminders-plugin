@@ -4,6 +4,8 @@ import type { RemindersData } from './types'
 
 interface Storage {
   remindersData: RemindersData
+  /** It stores temporary data (remIds) that have to be removed from server */
+  removedReminders: Set<string>
 }
 
 export const storage: Storage = {
@@ -12,6 +14,7 @@ export const storage: Storage = {
     timestamp: undefined,
     reminders: [],
   },
+  removedReminders: new Set(),
 }
 
 export const initRemindersData = async (plugin: ReactRNPlugin) => {
