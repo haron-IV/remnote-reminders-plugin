@@ -1,0 +1,16 @@
+{
+  "name": "@remnote-reminders-plugin/shared",
+  "version": "1.0.0",
+  "description": "shared plugin items",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
