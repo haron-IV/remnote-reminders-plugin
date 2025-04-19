@@ -4,7 +4,8 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import express from 'express'
 import mongoose from 'mongoose'
-import TelegramBot from 'node-telegram-bot-api'
+import { Telegraf, Telegram } from 'telegraf'
+import { message } from 'telegraf/filters'
 
 import { RemindersModel } from './schemas.js'
 import { RegisterRemindersRequest, RegisterRemindersResponse } from './types.js'
@@ -31,13 +32,21 @@ const init = () => {
       console.log('MongoDB connection error:', err)
     })
 
-  const bot = new TelegramBot(TELEGRAM_TOKEN, { polling: true })
+  const bot = new Telegraf(TELEGRAM_TOKEN)
+  const t = new Telegram(TELEGRAM_TOKEN)
 
-  bot.onText(/\/start/, (msg: TelegramBot.Message) => {
-    void bot.sendMessage(
-      msg.chat.id,
-      `This is your chat id "${String(msg.chat.id)}" you have to paste it to Remnote plugin settings. It is id of our chat, you will get notifications here.`
+  bot.start((ctx) =>
+    ctx.reply(
+      `This is your chat id "${String(ctx.chat.id)}" you have to paste it to Remnote plugin settings. It is id of our chat, you will get notifications here.`
     )
+  )
+
+  bot.launch(() => {
+    console.log('Telegram bot launched')
+  })
+
+  bot.on(message('text'), (ctx) => {
+    ctx.reply(`Received message: ${ctx.message.text}`)
   })
 
   app.post(
@@ -58,15 +67,23 @@ const init = () => {
 
         await newReminder.save()
 
-        // the url is url for github pages and the index.html that is inside this repo under /redirection-page directory
-        await bot.sendMessage(
+        t.sendMessage(
           chatId,
-          `
-        ${String(reminders[0].text)}
-        <a href="https://haron-iv.github.io/remnote-reminders-plugin/redirection-page/?deeplink=${reminders[0].deeplink}">Otwórz Remnote</a>
-      `,
-          { parse_mode: 'HTML' }
+          `<a href="https://haron-iv.github.io/remnote-reminders-plugin/redirection-page/?deeplink=${reminders[0].deeplink}">Otwórz Remnote</a>`,
+          {
+            parse_mode: 'HTML',
+          }
         )
+
+        // the url is url for github pages and the index.html that is inside this repo under /redirection-page directory
+        //   await bot.sendMessage(
+        //     chatId,
+        //     `
+        //   ${String(reminders[0].text)}
+        //   <a href="https://haron-iv.github.io/remnote-reminders-plugin/redirection-page/?deeplink=${reminders[0].deeplink}">Otwórz Remnote</a>
+        // `,
+        //     { parse_mode: 'HTML' }
+        //   )
 
         res.status(200).send(req.body)
       } catch (error: unknown) {
