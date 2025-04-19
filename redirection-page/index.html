@@ -4,10 +4,20 @@
     <meta charset="UTF-8" />
     <title>Redirection to Remnote</title>
     <script type="text/javascript">
-      const remnoteDeeplink = window.location.href.split('=')[1]
-      window.location.href = remnoteDeeplink
-      const link = document.querySelector('#redirection-url')
-      link.href = remnoteDeeplink
+      const searchParams = new URLSearchParams(window.location.search)
+      const remnoteDeeplink = searchParams.get('deeplink')
+      const reminderText = searchParams.get('reminderText')
+
+      const a = document.querySelector('#redirection-url')
+      a.href = remnoteDeeplink
+
+      const span = document.querySelector('#reminder-text')
+      span.innerHTML = reminderText
+
+      window.location.replace(remnoteDeeplink)
+      setTimeout(() => {
+        window.close()
+      }, 500)
     </script>
     <style>
       body {
@@ -17,9 +27,10 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        background-color: #232329;
+        background-color: #15141b;
         color: #fff;
         font-family:
+          Inter,
           system-ui,
           -apple-system,
           BlinkMacSystemFont,
@@ -31,10 +42,10 @@
           'Open Sans',
           'Helvetica Neue',
           sans-serif;
-        font-size: 20px;
       }
       a {
-        padding: 10px 40px;
+        margin-top: 10px;
+        padding: 15px 60px;
         background-color: #1b1b1d;
         border-radius: 10px;
         display: flex;
@@ -42,12 +53,50 @@
         align-items: center;
         text-decoration: none;
         color: #fff;
+        font-weight: 500;
+        letter-spacing: 0.5px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        background-color: #164eb6;
+        transition: transform ease 200ms;
+        cursor: pointer;
+      }
+      a:hover {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        transform: scale(1.01);
+      }
+      .reminder-txt {
+        background-color: #1d1b23;
+        padding: 25px 50px;
+        border-radius: 15px;
+        font-size: 28px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #27282f;
+      }
+      .reminder-txt > img {
+        margin-right: 20px;
+      }
+      h1 {
+        font-size: 48px;
+        font-weight: 700;
+        margin-bottom: 15px;
+      }
+      .caption {
+        font-size: 10px;
+        font-weight: 100;
+        padding: 0px;
+        margin-top: 5px;
       }
     </style>
   </head>
   <body>
+    <h1>🔔 Reminder</h1>
+    <div class="reminder-txt">
+      <img src="./check.jpg" width="28" /> <span id="reminder-text"></span>
+    </div>
     <p>If redirection didn't happen automatically, click this button</p>
     <a id="redirection-url">Open Remnote</a>
+    <p class="caption">it will open Remnote with your reminder</p>
   </body>
 </html>

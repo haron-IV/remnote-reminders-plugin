@@ -67,23 +67,14 @@ const init = () => {
 
         await newReminder.save()
 
+        // the url is url for github pages and the index.html that is inside this repo under /redirection-page directory
         t.sendMessage(
           chatId,
-          `<a href="https://haron-iv.github.io/remnote-reminders-plugin/redirection-page/?deeplink=${reminders[0].deeplink}">Otwórz Remnote</a>`,
+          `<a href="https://haron-iv.github.io/remnote-reminders-plugin/redirection-page/?deeplink=${reminders[0].deeplink}&reminderText=${reminders[0].text}">Otwórz Remnote</a>`,
           {
             parse_mode: 'HTML',
           }
         )
-
-        // the url is url for github pages and the index.html that is inside this repo under /redirection-page directory
-        //   await bot.sendMessage(
-        //     chatId,
-        //     `
-        //   ${String(reminders[0].text)}
-        //   <a href="https://haron-iv.github.io/remnote-reminders-plugin/redirection-page/?deeplink=${reminders[0].deeplink}">Otwórz Remnote</a>
-        // `,
-        //     { parse_mode: 'HTML' }
-        //   )
 
         res.status(200).send(req.body)
       } catch (error: unknown) {
