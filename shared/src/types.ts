@@ -10,6 +10,7 @@ export interface RemindersData {
 export interface Reminder {
   date?: string
   time?: string
+  UTCTime?: string
   text?: string
   remId: string
   timestamp: number

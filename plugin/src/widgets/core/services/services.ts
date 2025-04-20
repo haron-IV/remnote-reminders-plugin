@@ -1,10 +1,20 @@
 import { RemindersData } from '@remnote-reminders-plugin/shared'
+import { mapDateTimeToUTC } from '../utils/utils'
+
+const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
 
 export const registerReminders = async (data: RemindersData) => {
-  console.log('API CALL', data)
+  const mappedReminders = data.reminders.map(({ date, time, ...reminder }) => ({
+    ...reminder,
+    date,
+    time,
+    timezone,
+    UTCTime: mapDateTimeToUTC(date, time, timezone),
+  }))
+
   await fetch(`http://localhost:3000/register-reminders`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
+    body: JSON.stringify({ ...data, reminders: mappedReminders }),
   })
 }

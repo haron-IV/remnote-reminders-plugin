@@ -69,7 +69,7 @@ index.html - this is simple html site that redirects directly to rem in the appl
 - [ ] check licenses
 - [x] `src/widget` move commands outside -> look at documentation
 - [x] change the name of the directory `pwa`
-- [ ] add typescipt for server side
+- [x] add typescipt for server side
 - [ ] remove `local-notes.md` afterwards
 - [ ] `core/services` add dev / prod variables for urls
 - [ ] text is not updated
