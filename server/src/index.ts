@@ -3,10 +3,10 @@ dotenv.config()
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import express from 'express'
-
 import { initTelegramMiddlewares } from './telegram.js'
 import { initDatabaseConnection } from './database.js'
 import { registerRemindersController } from './registerRemindersController.js'
+import { scheduler } from './scheduler.js'
 
 const PORT = process.env.PORT ?? 3000
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN
@@ -26,6 +26,8 @@ const init = () => {
   const { telegraf, telegram } = initTelegramMiddlewares(TELEGRAM_TOKEN)
 
   registerRemindersController(app)
+
+  scheduler()
 
   app.listen(PORT, () => {
     console.log(`✅ server is running: http://localhost:${String(PORT)}`)

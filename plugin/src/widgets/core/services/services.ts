@@ -9,7 +9,8 @@ export const registerReminders = async (data: RemindersData) => {
     date,
     time,
     timezone,
-    UTCTime: mapDateTimeToUTC(date, time, timezone),
+    sent: false,
+    UTCTime: mapDateTimeToUTC(date, time),
   }))
 
   await fetch(`http://localhost:3000/register-reminders`, {

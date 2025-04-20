@@ -11,4 +11,4 @@ export enum SlotCode {
 }
 
 export const SEND_REMINDERS_TO_API_DEBOUNCE_MS = 2000
-export const DATE_FORMAT = 'dd/mm/yyyy'
+export const DATE_FORMAT = 'dd/MM/yyyy'
