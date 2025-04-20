@@ -3,6 +3,8 @@ import { Schema, model } from 'mongoose'
 const ReminderSchema = new Schema({
   date: { type: String, required: false },
   time: { type: String, required: false },
+  timezone: { type: String, required: false },
+  UTCTime: { type: String, required: false },
   text: { type: String, required: false },
   remId: { type: String, required: true },
   timestamp: { type: Number, required: true },
