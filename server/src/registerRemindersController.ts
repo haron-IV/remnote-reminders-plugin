@@ -1,4 +1,4 @@
-import { Express } from 'express'
+import type { Express } from 'express'
 import { RegisterRemindersRequest, RegisterRemindersResponse } from './types.js'
 import { RemindersModel } from './schemas.js'
 import { RemindersData } from '@remnote-reminders-plugin/shared'
@@ -18,8 +18,6 @@ const mapRemindersData = async (incomingRemindersData: RemindersData) => {
 
     const reminderNotUpdated =
       date === reminderFromDB.date && time === reminderFromDB.time && text === reminderFromDB.text
-
-    // console.log(date, reminderFromDB.date, reminderFromDB.UTCTime)
 
     if (reminderNotUpdated && reminderFromDB.sent) return reminderFromDB
     else return { remId, date, time, text, ...rest }

@@ -1,4 +1,4 @@
-import { Reminder } from '@remnote-reminders-plugin/shared'
+import type { Reminder } from '@remnote-reminders-plugin/shared'
 import { RemindersModel } from './schemas.js'
 
 /**
@@ -24,21 +24,23 @@ const getAllPastReminders = async () => {
   ])
 }
 
-const updateReminders = async (chatId: number, remId: string) => {
+const flagReminderAsSent = async (chatId: number, remId: string) => {
   await RemindersModel.updateOne(
     { chatId, 'reminders.remId': remId },
-    {
-      $set: {
-        'reminders.$.sent': true,
-      },
-    }
+    { $set: { 'reminders.$.sent': true } }
   )
 }
 
 export const scheduler = () => {
-  setInterval(async () => {
-    const pastReminders = await getAllPastReminders()
-    console.log(`Found ${pastReminders.length} past reminders`)
-    for (const { chatId, reminder } of pastReminders) await updateReminders(chatId, reminder.remId)
-  }, 10_000)
+  setInterval(
+    async () => {
+      const pastReminders = await getAllPastReminders()
+      console.log(`Found ${pastReminders.length} past reminders`)
+      for (const { chatId, reminder } of pastReminders) {
+        // TODO: send messages
+        await flagReminderAsSent(chatId, reminder.remId)
+      }
+    },
+    Number(process.env.SCHEDULER_INTERVAL_MS || 10_000)
+  )
 }
