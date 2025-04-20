@@ -9,6 +9,7 @@ const ReminderSchema = new Schema({
   remId: { type: String, required: true },
   timestamp: { type: Number, required: true },
   deeplink: { type: String, required: true },
+  sent: { type: Boolean, default: false },
 })
 
 const RemindersDataSchema = new Schema({

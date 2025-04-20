@@ -1,10 +1,8 @@
 import { ReactRNPlugin } from '@remnote/plugin-sdk'
 import debounce from 'lodash.debounce'
-import { DATE_FORMAT, SEND_REMINDERS_TO_API_DEBOUNCE_MS } from '../../shared/constants'
+import { SEND_REMINDERS_TO_API_DEBOUNCE_MS } from '../../shared/constants'
 import { registerReminders } from '../services/services'
 import { storage } from '../../shared/storage'
-import { parse, setHours, setMinutes } from 'date-fns'
-import { toZonedTime } from 'date-fns-tz'
 
 /**
  * @description Get default time for reminder. It is 15 minutes from now (900000 milliseconds)
@@ -15,15 +13,13 @@ export const getDefaultTime = () =>
     minute: '2-digit',
   })
 
-export const mapDateTimeToUTC = (date?: string, time?: string, userTimezone?: string) => {
+export const mapDateTimeToUTC = (date?: string, time?: string) => {
   if (!date || !time) return ''
-  const reminderDate = parse(date, DATE_FORMAT, new Date())
-  let dateTime = setHours(reminderDate, Number(time?.split(':')[0]))
-  dateTime = setMinutes(dateTime, Number(time?.split(':')[1]))
-  const zonedDateTime = userTimezone && toZonedTime(dateTime, userTimezone)
-  const utc = zonedDateTime && zonedDateTime.toISOString()
+  const [day, month, year] = date.split('/').map(Number)
+  const [hours, minutes] = time.split(':').map(Number)
+  const reminderDate = new Date(year, month - 1, day, hours, minutes)
 
-  return utc
+  return reminderDate.toISOString() // it formats the date to UTC
 }
 
 export const getDeeplink = async (plugin: ReactRNPlugin, remId: string) => {
