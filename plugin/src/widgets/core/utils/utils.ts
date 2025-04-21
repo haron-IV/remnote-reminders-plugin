@@ -11,6 +11,7 @@ export const getDefaultTime = () =>
   new Date(Date.now() + 900000).toLocaleTimeString([], {
     hour: '2-digit',
     minute: '2-digit',
+    hourCycle: 'h24',
   })
 
 export const mapDateTimeToUTC = (date?: string, time?: string) => {
@@ -24,7 +25,7 @@ export const mapDateTimeToUTC = (date?: string, time?: string) => {
 
 export const getDeeplink = async (plugin: ReactRNPlugin, remId: string) => {
   const knowledgeBase = await plugin.kb.getCurrentKnowledgeBaseData()
-  if (!knowledgeBase || !remId) return ''
+  if (!knowledgeBase) return ''
 
   return `remnote://w/${knowledgeBase._id}/${remId}`
 }
