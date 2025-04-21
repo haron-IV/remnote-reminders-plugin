@@ -1,14 +1,13 @@
 import type { Express } from 'express'
-import { RegisterRemindersRequest, RegisterRemindersResponse } from './types.js'
+import type { RegisterRemindersRequest, RegisterRemindersResponse } from './types.js'
 import { RemindersModel } from './schemas.js'
-import { RemindersData } from '@remnote-reminders-plugin/shared'
+import type { RemindersData } from '@remnote-reminders-plugin/shared'
 
 /**
  * @description It filters the reminders in order to keep only the reminders that were changed
  */
-const mapRemindersData = async (incomingRemindersData: RemindersData) => {
-  const userRemindersFromDB = await RemindersModel.findOne({ chatId: incomingRemindersData.chatId })
-  const { reminders: incomingReminders } = incomingRemindersData
+const mapRemindersData = async ({ chatId, reminders: incomingReminders }: RemindersData) => {
+  const userRemindersFromDB = await RemindersModel.findOne({ chatId })
 
   return incomingReminders.map(({ remId, date, time, text, ...rest }) => {
     const reminderFromDB = userRemindersFromDB?.reminders.find(
