@@ -27,7 +27,7 @@ const init = () => {
 
   registerRemindersController(app)
 
-  scheduler()
+  scheduler(telegram)
 
   app.listen(PORT, () => {
     console.log(`✅ server is running: http://localhost:${String(PORT)}`)
