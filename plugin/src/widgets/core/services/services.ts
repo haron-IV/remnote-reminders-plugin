@@ -3,7 +3,7 @@ import { mapDateTimeToUTC } from '../utils/utils'
 import { REMINDER_TEXT_CHARACTER_LIMIT } from '../../shared/constants'
 
 const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
-const textLimit = (text?: string) =>
+export const textLimit = (text?: string) =>
   (text || '').length > REMINDER_TEXT_CHARACTER_LIMIT
     ? text?.slice(0, REMINDER_TEXT_CHARACTER_LIMIT).concat('...')
     : text
