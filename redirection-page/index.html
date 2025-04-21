@@ -14,11 +14,9 @@
       const span = document.querySelector('#reminder-text')
       span.innerHTML = reminderText
 
-      window.location.replace(remnoteDeeplink)
-
       setTimeout(() => {
-        window.close()
-      }, 500)
+        window.location.replace(remnoteDeeplink)
+      }, 100)
     </script>
 
     <style>
