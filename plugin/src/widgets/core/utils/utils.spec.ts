@@ -2,9 +2,7 @@ import { describe, it, expect, vi, beforeEach, beforeAll, afterAll } from 'vites
 import { getDeeplink, getDefaultTime, mapDateTimeToUTC, updateReminder } from './utils.js'
 import { ReactRNPlugin } from '@remnote/plugin-sdk'
 import { storage } from '../../shared/storage.js'
-import { before } from 'node:test'
-import { registerReminders } from '../services/services.js'
-import { Reminder } from '@remnote-reminders-plugin/shared'
+import type { Reminder } from '@remnote-reminders-plugin/shared'
 
 describe('utils', () => {
   describe('getDefaultTime()', () => {
