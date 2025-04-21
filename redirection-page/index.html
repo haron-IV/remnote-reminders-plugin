@@ -3,22 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <title>Redirection to Remnote</title>
-    <script type="text/javascript" defer>
-      const searchParams = new URLSearchParams(window.location.search)
-      const remnoteDeeplink = searchParams.get('deeplink')
-      const reminderText = searchParams.get('reminderText')
-
-      const a = document.querySelector('#redirection-url')
-      a.href = remnoteDeeplink
-
-      const span = document.querySelector('#reminder-text')
-      span.innerHTML = reminderText
-
-      setTimeout(() => {
-        window.location.replace(remnoteDeeplink)
-      }, 100)
-    </script>
-
     <style>
       body {
         width: 100vw;
@@ -98,5 +82,21 @@
     <p>If redirection didn't happen automatically, click this button</p>
     <a id="redirection-url">Open Remnote</a>
     <p class="caption">it will open Remnote with your reminder</p>
+
+    <script type="text/javascript" defer>
+      const searchParams = new URLSearchParams(window.location.search)
+      const remnoteDeeplink = searchParams.get('deeplink')
+      const reminderText = searchParams.get('reminderText')
+
+      const a = document.querySelector('#redirection-url')
+      a.href = remnoteDeeplink
+
+      const span = document.querySelector('#reminder-text')
+      span.innerHTML = reminderText
+
+      setTimeout(() => {
+        window.location.replace(remnoteDeeplink)
+      }, 100)
+    </script>
   </body>
 </html>
