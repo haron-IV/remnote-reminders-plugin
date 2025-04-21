@@ -4,8 +4,8 @@ import { registerPowerup } from './core/components/registerPowerup'
 import { registerSettings } from './core/settings/settings'
 import { initRemindersData } from './shared/storage'
 import { watchRemRemindersOnLoad } from './core/components/watchRemRemindersOnLoad'
-import '../style.css' //TODO: to remove
-import '../App.css' //TODO: to remove
+import '../style.css' //TODO: to remove if not used
+import '../App.css' //TODO: to remove if not used
 
 async function onActivate(plugin: ReactRNPlugin) {
   await registerSettings(plugin)

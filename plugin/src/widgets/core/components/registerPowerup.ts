@@ -61,7 +61,7 @@ export const registerPowerup = async (plugin: ReactRNPlugin) => {
 
   await plugin.app.registerCommand({
     id: `${PowerupCode.RemindMe}-command`,
-    name: `Remind me ${chatId ? '' : '<-- it will not work. Please set chatId in settings'}`,
+    name: `Remind me ${chatId ? '' : '<-- it will not work. Please set chatId in the settings.'}`,
     action: async () => {
       if (!chatId) {
         await plugin.app.toast('Please, set chatId in the plugin settings.')

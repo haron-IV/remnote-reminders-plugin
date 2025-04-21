@@ -9,7 +9,5 @@ export const watchRemRemindersOnLoad = async (plugin: ReactRNPlugin, powerup?: R
   if (!powerup) return
 
   const reminderRems = await powerup?.taggedRem()
-  reminderRems.forEach(async (reminderRem) => {
-    await addListenerToPowerupRem(plugin, reminderRem)
-  })
+  reminderRems.forEach(async (reminderRem) => await addListenerToPowerupRem(plugin, reminderRem))
 }

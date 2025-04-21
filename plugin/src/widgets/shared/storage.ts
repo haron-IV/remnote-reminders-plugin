@@ -1,6 +1,6 @@
 import { ReactRNPlugin } from '@remnote/plugin-sdk'
 import { getSettings } from '../core/settings/settings'
-import { RemindersData } from '@remnote-reminders-plugin/shared'
+import type { RemindersData } from '@remnote-reminders-plugin/shared'
 
 interface Storage {
   remindersData: RemindersData

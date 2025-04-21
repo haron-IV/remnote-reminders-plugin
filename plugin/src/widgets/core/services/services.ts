@@ -1,4 +1,4 @@
-import { RemindersData } from '@remnote-reminders-plugin/shared'
+import type { RemindersData } from '@remnote-reminders-plugin/shared'
 import { mapDateTimeToUTC } from '../utils/utils'
 import { REMINDER_TEXT_CHARACTER_LIMIT } from '../../shared/constants'
 
@@ -19,7 +19,7 @@ export const registerReminders = async (data: RemindersData) => {
     UTCTime: mapDateTimeToUTC(date, time),
   }))
 
-  await fetch(`http://localhost:3000/register-reminders`, {
+  return await fetch(`http://localhost:3000/register-reminders`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ ...data, reminders: mappedReminders }),
