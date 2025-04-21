@@ -34,15 +34,13 @@ export const updateReminder = debounce(async (remId: string) => {
     (reminder) => reminder.remId === remId
   )
 
-  //TODO: has to be cleared (the Set) because it is not
-  // remove removed reminders from storage
+  // remove 'removed' reminders from storage
   if (storage.removedReminders.size > 0)
     storage.remindersData.reminders = storage.remindersData.reminders.filter((reminder) => {
       if (!storage.removedReminders.has(reminder.remId)) return true
     })
 
-  // TODO: get status of the response and then clear the Set
-  if (toUpdateIndex >= 0) await registerReminders(storage.remindersData)
-
-  storage.removedReminders.clear()
+  if (toUpdateIndex < 0) return
+  const { status } = await registerReminders(storage.remindersData)
+  if (status === 200) storage.removedReminders.clear()
 }, SEND_REMINDERS_TO_API_DEBOUNCE_MS)

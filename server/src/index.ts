@@ -7,30 +7,25 @@ import { initTelegramMiddlewares } from './telegram.js'
 import { initDatabaseConnection } from './database.js'
 import { registerRemindersController } from './registerRemindersController.js'
 import { scheduler } from './scheduler.js'
-
-const PORT = process.env.PORT ?? 3000
-const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN
-const MONGODB_URI = process.env.MONGODB_URI
+import { env } from './env.js'
 
 const init = () => {
-  if (!MONGODB_URI) throw new Error('MONGODB_URI not specified')
-  if (!TELEGRAM_TOKEN) throw new Error('TELEGRAM_TOKEN not specified')
-
-  initDatabaseConnection(MONGODB_URI)
+  if (env.mongodbUri) initDatabaseConnection(env.mongodbUri)
+  if (!env.telegramToken) return
 
   const app = express()
   app.use(cors())
   app.use(express.json())
   app.use(bodyParser.json())
 
-  const { telegraf, telegram } = initTelegramMiddlewares(TELEGRAM_TOKEN)
+  const { telegraf, telegram } = initTelegramMiddlewares(env.telegramToken)
 
   registerRemindersController(app)
 
   scheduler(telegram)
 
-  app.listen(PORT, () => {
-    console.log(`✅ server is running: http://localhost:${String(PORT)}`)
+  app.listen(env.apiPort, () => {
+    console.log(`✅ server is running: http://localhost:${String(env.apiPort)}`)
   })
 }
 

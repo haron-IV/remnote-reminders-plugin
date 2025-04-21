@@ -5,12 +5,13 @@ import { getDefaultTime } from '../utils/utils'
 import { addListenerToPowerupRem } from './addListenerToPowerupRem'
 import { getSettings } from '../settings/settings'
 
-const addPowerup = async (
-  plugin: ReactRNPlugin,
-  rem: RemObject,
-  powerup: PowerupCode,
+interface AddPowerupProps {
+  plugin: ReactRNPlugin
+  rem: RemObject
+  powerup: PowerupCode
   today?: string
-) => {
+}
+const addPowerup = async ({ plugin, powerup, rem, today }: AddPowerupProps) => {
   await rem.addPowerup(powerup)
   await rem.setPowerupProperty(PowerupCode.RemindMe, SlotCode.Date, today ? [today] : [])
   await rem.setPowerupProperty(PowerupCode.RemindMe, SlotCode.Time, [getDefaultTime()])
@@ -19,18 +20,20 @@ const addPowerup = async (
 }
 
 const powerupCommand = async (plugin: ReactRNPlugin) => {
+  const today = (await plugin.date.getTodaysDoc())?.text?.toString()
   const selection = await plugin.editor.getSelection()
-  if (!selection?.type) return
+  if (!selection?.type || !today) return
 
   if (selection.type === SelectionType.Rem) {
     const rems = (await plugin.rem.findMany(selection.remIds)) || []
-    rems.forEach(async (rem) => await addPowerup(plugin, rem, PowerupCode.RemindMe))
+    rems.forEach(
+      async (rem) => await addPowerup({ plugin, rem, powerup: PowerupCode.RemindMe, today })
+    )
   } else {
     const rem = await plugin.rem.findOne(selection.remId)
     if (!rem) return
 
-    const today = await plugin.date.getTodaysDoc()
-    await addPowerup(plugin, rem, PowerupCode.RemindMe, today?.text?.toString())
+    await addPowerup({ plugin, rem, powerup: PowerupCode.RemindMe, today })
   }
 }
 
@@ -58,7 +61,7 @@ export const registerPowerup = async (plugin: ReactRNPlugin) => {
 
   await plugin.app.registerCommand({
     id: `${PowerupCode.RemindMe}-command`,
-    name: `Remind me ${chatId ? '' : '<-- it will not work. Please set chatId in settings'}`,
+    name: `Remind me ${chatId ? '' : '<-- it will not work. Please set chatId in the settings.'}`,
     action: async () => {
       if (!chatId) {
         await plugin.app.toast('Please, set chatId in the plugin settings.')

@@ -56,31 +56,9 @@ index.html - this is simple html site that redirects directly to rem in the appl
 - add reminder to single rem
 - add reminder to selected rems
 - removing selected rems also removes reminders
+- Get notifications through telegram messages
+- Open Remnote app on desired rem when clicking on the notification
 
 # Known issues
 
 `cmd+z` doesn't work - it will not remove your reminder from server unless you reload the app, or update it manually.
-
-# TODO
-
-- [x] Update manifest
-- [ ] Add suppoert for AM/PM hours
-- [ ] remove todos
-- [ ] check licenses
-- [x] `src/widget` move commands outside -> look at documentation
-- [x] change the name of the directory `pwa`
-- [x] add typescipt for server side
-- [ ] remove `local-notes.md` afterwards
-- [ ] `core/services` add dev / prod variables for urls
-- [ ] text is not updated
-- [ ] deleted in selection not working | there is no date / time as well sometimes
-- [x] removing only rem tag should remove reminder
-- [ ] refactorize path `./index` export items
-- [x] when opening powerup and remove selected items from the list it will not remove items properly
-- [ ] ASK: comments - ask about them in the mr
-
----
-
-Current work
-
-- [ ] handle delete then ctrl - z
