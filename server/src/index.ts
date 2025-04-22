@@ -3,11 +3,11 @@ dotenv.config()
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import express from 'express'
-import { initTelegramMiddlewares } from './telegram.js'
-import { initDatabaseConnection } from './database.js'
+import { initDatabaseConnection } from './database/database.js'
 import { registerRemindersController } from './registerRemindersController.js'
 import { scheduler } from './scheduler.js'
 import { env } from './env.js'
+import { initTelegramMiddlewares } from './telegram/telegram.js'
 
 const init = () => {
   if (env.mongodbUri) initDatabaseConnection(env.mongodbUri)

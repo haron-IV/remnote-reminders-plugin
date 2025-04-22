@@ -35,7 +35,9 @@ const flagReminderAsSent = async (chatId: number, remId: string) =>
 export const scheduler = (telegram: Telegram) => {
   setInterval(async () => {
     const pastReminders = await getAllPastReminders()
-    console.log(`Found ${pastReminders.length} past reminders`)
+    console.log(
+      `[${new Date().getHours()}:${new Date().getMinutes()}] Found ${pastReminders.length} past reminders`
+    )
     for (const { chatId, reminder } of pastReminders) {
       if (!chatId) return
       // the url is url for github pages and the index.html that is inside this repo under /redirection-page directory
