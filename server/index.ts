@@ -1,13 +1,14 @@
 import * as dotenv from 'dotenv'
-dotenv.config()
+import path from 'path'
+dotenv.config({ path: path.resolve(__dirname, '../.env') })
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import express from 'express'
-import { initDatabaseConnection } from './database/database.js'
-import { registerRemindersController } from './registerRemindersController.js'
-import { scheduler } from './scheduler.js'
-import { env } from './env.js'
-import { initTelegramMiddlewares } from './telegram/telegram.js'
+import { initDatabaseConnection } from './src/database/database.js'
+import { scheduler } from './src/scheduler.js'
+import { env } from './src/env.js'
+import { initTelegramMiddlewares } from './src/telegram/telegram.js'
+import { registerRemindersController } from './src/registerRemindersController.js'
 
 const init = () => {
   if (env.mongodbUri) initDatabaseConnection(env.mongodbUri)

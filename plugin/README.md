@@ -62,3 +62,33 @@ index.html - this is simple html site that redirects directly to rem in the appl
 # Known issues
 
 `cmd+z` doesn't work - it will not remove your reminder from server unless you reload the app, or update it manually.
+
+# Docker
+
+To build an image you have to go to sever and `rm -rf dist` then `pnpm build` then you can build and run a docker image via
+
+```bash
+docker compose up
+```
+
+Then you have to tag your images
+
+```
+docker tag <image_id> docker_hub_username/application_name:v1.0
+```
+
+> - application_name is a repository name. There you have to have server & mongo image
+
+then you can push it to docker hub
+
+```
+docker push <image_id> docker_hub_username/application_name:v1.0
+```
+
+then pull the image on the server
+
+```
+docker pull <image_id> docker_hub_username/application_name:v1.0
+```
+
+Then TBD... **another composer file for server**
