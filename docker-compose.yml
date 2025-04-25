@@ -9,7 +9,7 @@ services:
       - mongo
     environment:
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
-      - MONGODB_URI=mongodb://mongo:27017/remnote_notification_plugin #create diff env file
+      - MONGODB_URI=${MONGODB_URI}
       - SCHEDULER_INTERVAL_MS=${SCHEDULER_INTERVAL_MS}
     volumes:
       - ./server:/app/server

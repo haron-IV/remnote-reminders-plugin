@@ -9,4 +9,4 @@ dist-ssr
 local-notes.md
 
 .env
-.env.*
+.env.prod

@@ -11,6 +11,7 @@ import { initTelegramMiddlewares } from './src/telegram/telegram.js'
 import { registerRemindersController } from './src/registerRemindersController.js'
 
 const init = () => {
+  console.log('\x1b[31m%s\x1b[0m', 'ENV', Object.entries(env))
   if (env.mongodbUri) initDatabaseConnection(env.mongodbUri)
   if (!env.telegramToken) return
 

@@ -65,25 +65,38 @@ index.html - this is simple html site that redirects directly to rem in the appl
 
 # Docker
 
-To build an image you have to go to sever and `rm -rf dist` then `pnpm build` then you can build and run a docker image via
+## 1 Build the image
+
+Create .env.prod file from .env.template
+Keep in mind that mongo has different path for docker versions so this `MONGODB_URI=mongodb://localhost:27017/db_name` would be this `mongodb://mongo:27017/db_name`
+
+To build an image you have to go to sever and `rm -rf dist` then `pnpm build` then you can build and run a docker image via:
 
 ```bash
-docker compose up
+docker compose --env-file .env up
+# or
+docker compose --env-file .env.prod up
 ```
+
+## 2 Tag the image
 
 Then you have to tag your images
 
 ```
-docker tag <image_id> docker_hub_username/application_name:v1.0
+docker tag <image_id> docker_hub_username/repository_name:tagName
 ```
 
 > - application_name is a repository name. There you have to have server & mongo image
 
+## 3 Push the image
+
 then you can push it to docker hub
 
 ```
-docker push <image_id> docker_hub_username/application_name:v1.0
+docker push docker_hub_username/repository_name_:tag
 ```
+
+## 4 Pull the image
 
 then pull the image on the server
 
