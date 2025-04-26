@@ -1,0 +1,24 @@
+services:
+  server:
+    platform: linux/amd64
+    image: dockerhub_username/repository:tag
+    ports:
+      - '${API_PORT}:${API_PORT}'
+    depends_on:
+      - mongo
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - MONGODB_URI=${MONGODB_URI}
+      - SCHEDULER_INTERVAL_MS=${SCHEDULER_INTERVAL_MS}
+    restart: always
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+    restart: always
+
+volumes:
+  mongo-data:

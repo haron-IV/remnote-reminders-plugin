@@ -31,6 +31,8 @@ export const registerRemindersController = (app: Express) => {
         const { chatId } = body
         if (!chatId) throw new Error('chatId not specified')
 
+        console.log('Registering reminders:', body)
+
         await RemindersModel.findOneAndReplace(
           { chatId },
           { ...body, reminders: await mapRemindersData(body) },
