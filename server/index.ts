@@ -1,17 +1,18 @@
 import * as dotenv from 'dotenv'
 import path from 'path'
-dotenv.config({ path: path.resolve(__dirname, '../../.env') })
+dotenv.config({ path: path.resolve(__dirname, '../.env') })
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import express from 'express'
-import { initDatabaseConnection } from './database/database.js'
-import { registerRemindersController } from './registerRemindersController.js'
-import { scheduler } from './scheduler.js'
-import { env } from './env.js'
-import { initTelegramMiddlewares } from './telegram/telegram.js'
-import { log } from './logger.js'
+import { initDatabaseConnection } from './src/database/database.js'
+import { registerRemindersController } from './src/registerRemindersController.js'
+import { scheduler } from './src/scheduler.js'
+import { env } from './src/env.js'
+import { initTelegramMiddlewares } from './src/telegram/telegram.js'
+import { log } from './src/logger.js'
 
 const init = () => {
+  console.log('\x1b[31m%s\x1b[0m', 'ENV', Object.entries(env))
   if (env.mongodbUri) initDatabaseConnection(env.mongodbUri)
   if (!env.telegramToken) return
 
