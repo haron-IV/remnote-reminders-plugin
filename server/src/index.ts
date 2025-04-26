@@ -1,5 +1,6 @@
 import * as dotenv from 'dotenv'
-dotenv.config()
+import path from 'path'
+dotenv.config({ path: path.resolve(__dirname, '../../.env') })
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import express from 'express'
@@ -8,6 +9,7 @@ import { registerRemindersController } from './registerRemindersController.js'
 import { scheduler } from './scheduler.js'
 import { env } from './env.js'
 import { initTelegramMiddlewares } from './telegram/telegram.js'
+import { log } from './logger.js'
 
 const init = () => {
   if (env.mongodbUri) initDatabaseConnection(env.mongodbUri)
@@ -25,7 +27,7 @@ const init = () => {
   scheduler(telegram)
 
   app.listen(env.apiPort, () => {
-    console.log(`✅ server is running: http://localhost:${String(env.apiPort)}`)
+    log.info(`✅ server is running: http://localhost:${String(env.apiPort)}`)
   })
 }
 
