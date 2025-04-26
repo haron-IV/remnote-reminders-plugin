@@ -101,7 +101,19 @@ docker push docker_hub_username/repository_name_:tag
 then pull the image on the server
 
 ```
-docker pull <image_id> docker_hub_username/application_name:v1.0
+docker pull docker_hub_username/repository_name:tag-name
 ```
 
-Then TBD... **another composer file for server**
+Then you can run the image on the vps, to do that use `docker.compose.vps.yml` it's modified composer file to run image and load the variables. Before you do that make sure you have env file on the vps.
+
+Edit this line in `docker-compose.vps.yml`:
+
+```yml
+image: dockerhub_username/repository:tag
+```
+
+then you can run the image on your vps
+
+```bash
+docker compose --env-file .env up -d
+```
