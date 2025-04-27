@@ -20,6 +20,9 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Install pnpm
+        run: npm install -g pnpm
+
       - name: Install dependencies
         working-directory: plugin
         run: |
@@ -41,6 +44,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Install dependencies
         working-directory: server
