@@ -1,6 +1,6 @@
-import { describe } from 'node:test'
+import { describe } from 'vitest'
 
-describe.todo('addListenerToPowerupRem()')
+describe.todo('addListenerToPowerupRem()', () => {})
 
 describe.todo('registerPowerup()', () => {
   describe.todo('powerupCommand()', () => {
@@ -8,4 +8,4 @@ describe.todo('registerPowerup()', () => {
   })
 })
 
-describe.todo('watchRemRemindersOnLoad()')
+describe.todo('watchRemRemindersOnLoad()', () => {})
