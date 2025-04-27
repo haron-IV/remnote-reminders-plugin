@@ -1,5 +1,6 @@
 import { Telegraf, Telegram } from 'telegraf'
 import { message } from 'telegraf/filters'
+import { log } from '../logger'
 
 export const initTelegramMiddlewares = (telegramToken: string) => {
   const telegraf = new Telegraf(telegramToken)
@@ -16,7 +17,7 @@ export const initTelegramMiddlewares = (telegramToken: string) => {
   })
 
   telegraf.launch(() => {
-    console.log('Telegram bot launched')
+    log.info('💬 Telegram bot started')
   })
 
   return { telegraf, telegram }
