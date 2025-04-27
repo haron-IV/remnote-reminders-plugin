@@ -8,22 +8,46 @@ on:
       - master
 
 jobs:
-  test:
+  tests-plugin:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup node 
+      - name: Setup node
         uses: actions/setup-node@v4
         with:
           node-version: '22'
 
       - name: Install dependencies
-        run: | 
+        working-directory: plugin
+        run: |
           pnpm install
 
-      - name: Run unit tests 
+      - name: Run unit tests
+        working-directory: plugin
+        run: |
+          pnpm test
+
+  tests-server:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        working-directory: server
+        run: |
+          pnpm install
+
+      - name: Run unit tests
+        working-directory: server
         run: |
           pnpm test
