@@ -10,3 +10,5 @@ local-notes.md
 
 .env
 .env.prod
+
+/server/logs/*

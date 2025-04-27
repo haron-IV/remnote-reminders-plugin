@@ -2,6 +2,7 @@ import type { Express } from 'express'
 import type { RegisterRemindersRequest, RegisterRemindersResponse } from './types.js'
 import { RemindersModel } from './schemas.js'
 import type { RemindersData } from '@remnote-reminders-plugin/shared'
+import { log } from './logger.js'
 
 /**
  * @description It filters the reminders in order to keep only the reminders that were changed
@@ -31,7 +32,7 @@ export const registerRemindersController = (app: Express) => {
         const { chatId } = body
         if (!chatId) throw new Error('chatId not specified')
 
-        console.log('Registering reminders:', body)
+        log.info('Registering reminders:', body)
 
         await RemindersModel.findOneAndReplace(
           { chatId },
@@ -41,7 +42,7 @@ export const registerRemindersController = (app: Express) => {
           res.status(200).send(body)
         })
       } catch (error: unknown) {
-        console.error('Error saving reminders:', error)
+        log.error('Error saving reminders:', error)
         // return res.status(500).send('Error saving reminders')
       }
     }
