@@ -20,7 +20,14 @@
 
    <img src="./docs/settings.png" alt="Plugin Settings" width="680" height="620">
 
-5. You're all set!  
+5. **Change your date format**
+
+   For now date format should be set to `Day/Month/Year`. You can do it from RemNote settings.
+
+   <img src="./docs/required_settings.png" width="700" height="150" />
+
+6. **You're all set!**
+
    Now you can create reminders using the `/remind me` command.
 
    <img src="./docs/remind_me.jpg" alt="Remind Me Example" width="480" height="100">  
@@ -28,10 +35,10 @@
 
 ---
 
-## 🐞 Found a Bug or Have Feedback?
+## 🐞 Found a Bug or Have Feedback? 👉 [Open the Feedback Form](https://tally.so/r/3qgQyg)
 
-👉 [Open the Feedback Form](https://tally.so/r/3qgQyg)
+## Information Section
 
----
+<img src="./docs/how_data_is_stored.png" alt="Reminder Example" width="680" height="650">
 
 <small>version: alfa-1</small>
