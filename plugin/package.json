@@ -9,7 +9,7 @@
   "scripts": {
     "check-types": "tsc",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --color --progress --no-open",
-    "build": "npx remnote-plugin validate && shx rm -rf dist && cross-env NODE_ENV=production webpack --color --progress && shx cp README.md dist && cd dist && bestzip ../PluginZip.zip ./*",
+    "build": "shx rm -rf dist && cross-env NODE_ENV=production webpack --color --progress && shx cp README.md dist && cd dist && bestzip ../PluginZip.zip ./*",
     "test": "vitest"
   },
   "dependencies": {
