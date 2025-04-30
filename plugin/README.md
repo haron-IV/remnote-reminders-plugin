@@ -1,119 +1,37 @@
-# reminders
+# ⚠️ Alpha Version – For Testers Only
 
-Simple plugin to set reminders and get notifications from Remnote.
-
-## Usage
-
-<!-- TODO: Describe usage -->
-
-`pnpm run dev`
-
-<!-- ignore-after -->
-
-Install mongodb
-
-[install mongodb](https://www.mongodb.com/docs/manual/installation/)
-
-run mogno:
-
-`brew services start mongodb-community@8.0`
-
-stop it:
-
-`brew services stop mongodb-community@8.0`
+> This is a **Reminders Plugin** that lets you set reminders using the `/remind me` command. You’ll receive a message at the specific time you choose.
 
 ---
 
-structure:
+## 🔧 Installation
 
-```
-  widgets/
-    core/         <--- core plugin logic
-      component/  <--- core logic components
-      services/   <--- api calls, etc.
-      settings/   <--- plugin settings configuration
-      utils/      <--- utilities
-    shared/       <--- Shared components, settings, utils, etc.
-    UI/           <--- UI layer of the plugin
+1. **Open the Telegram app.**
+2. **Search for** `Remnote Notification Plugin`.
 
+   <img src="./docs/search.png" alt="Search Plugin" width="320" height="350">
 
-```
+3. **Open the chat** and tap the **Start** button or type `/start`.  
+   This will display your **Chat ID** – copy it.
 
----
+   <img src="./docs/start.png" alt="Start Chat" width="300" height="580">
 
-branch names:
+4. **Paste the Chat ID into the plugin settings.**
 
-`type/number-name`
+   <img src="./docs/settings.png" alt="Plugin Settings" width="680" height="620">
 
-`feat/#2/add-rending-reminders`
+5. You're all set!  
+   Now you can create reminders using the `/remind me` command.
 
-index.html - this is simple html site that redirects directly to rem in the application
+   <img src="./docs/remind_me.jpg" alt="Remind Me Example" width="480" height="100">  
+   <img src="./docs/reminder.jpg" alt="Reminder Example" width="680" height="90">
 
 ---
 
-# Functionalities
+## 🐞 Found a Bug or Have Feedback?
 
-- add reminder to single rem
-- add reminder to selected rems
-- removing selected rems also removes reminders
-- Get notifications through telegram messages
-- Open Remnote app on desired rem when clicking on the notification
+👉 [Open the Feedback Form](https://tally.so/r/3qgQyg)
 
-# Known issues
+---
 
-`cmd+z` doesn't work - it will not remove your reminder from server unless you reload the app, or update it manually.
-
-# Docker
-
-## 1 Build the image
-
-Create .env.prod file from .env.template
-Keep in mind that mongo has different path for docker versions so this `MONGODB_URI=mongodb://localhost:27017/db_name` would be this `mongodb://mongo:27017/db_name`
-
-To build an image you have to go to sever and `rm -rf dist` then `pnpm build` then you can build and run a docker image via:
-
-```bash
-docker compose --env-file .env up
-# or
-docker compose --env-file .env.prod up
-```
-
-## 2 Tag the image
-
-Then you have to tag your images
-
-```
-docker tag <image_id> docker_hub_username/repository_name:tagName
-```
-
-> - application_name is a repository name. There you have to have server & mongo image
-
-## 3 Push the image
-
-then you can push it to docker hub
-
-```
-docker push docker_hub_username/repository_name_:tag
-```
-
-## 4 Pull the image
-
-then pull the image on the server
-
-```
-docker pull docker_hub_username/repository_name:tag-name
-```
-
-Then you can run the image on the vps, to do that use `docker.compose.vps.yml` it's modified composer file to run image and load the variables. Before you do that make sure you have env file on the vps.
-
-Edit this line in `docker-compose.vps.yml`:
-
-```yml
-image: dockerhub_username/repository:tag
-```
-
-then you can run the image on your vps
-
-```bash
-docker compose --env-file .env up -d
-```
+<small>version: alfa-1</small>
