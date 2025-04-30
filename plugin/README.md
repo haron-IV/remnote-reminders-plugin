@@ -41,4 +41,8 @@
 
 <img src="./docs/how_data_is_stored.png" alt="Reminder Example" width="680" height="650">
 
+**Want to support the project?**
+
+Buy me a coffee ➡️ **[ko-fi.com/norahc](ko-fi.com/norahc)** ☕
+
 <small>version: alfa-1</small>
