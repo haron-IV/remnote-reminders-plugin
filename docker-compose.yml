@@ -18,9 +18,9 @@ services:
     restart: always
 
   mongo:
+    platform: linux/amd64
     build:
       context: ./mongo
-    container_name: mongo_secure
     ports:
       - '27017:27017'
     volumes:
