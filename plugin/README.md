@@ -4,7 +4,7 @@
 
 ---
 
-## 🔧 Installation
+## 🔧 Installation (video below)
 
 1. **Open the Telegram app.**
 2. **Search for** `Remnote Notification Plugin`.
@@ -34,6 +34,10 @@
    <img src="https://raw.githubusercontent.com/haron-IV/remnote-reminders-plugin/9d570c74c6b73af4c4eb73ff500fb78a33d5421a/plugin/docs/reminder.jpg" alt="Reminder Example" width="680" height="90">
 
 ---
+
+## Or watch te video
+
+<iframe width="560" height="315" src="https://raw.githubusercontent.com/haron-IV/remnote-reminders-plugin/9d570c74c6b73af4c4eb73ff500fb78a33d5421a/plugin/docs/demov2.mp4" frameborder="0" allowfullscreen></iframe>
 
 ## 🐞 Found a Bug or Have Feedback? 👉 [Open the Feedback Form](https://tally.so/r/3qgQyg)
 
