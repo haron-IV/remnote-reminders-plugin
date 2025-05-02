@@ -18,7 +18,9 @@ services:
     restart: always
 
   mongo:
-    image: mongo:latest
+    platform: linux/amd64
+    build:
+      context: ./mongo
     ports:
       - '27017:27017'
     volumes:
