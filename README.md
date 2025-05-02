@@ -1,110 +1,148 @@
-# reminders
+# 🔔 Reminders Plugin
 
-Simple plugin to set reminders and get notifications from Remnote.
-
-## Usage
-
-<!-- TODO: Describe usage -->
-
-`pnpm run dev`
-
-<!-- ignore-after -->
-
-Install mongodb
-
-[install mongodb](https://www.mongodb.com/docs/manual/installation/)
-
-run mogno:
-
-`brew services start mongodb-community@8.0`
-
-stop it:
-
-`brew services stop mongodb-community@8.0`
+Straightforward RemNote plugin for reminders. Set, Edit, Delete reminders to be notified about specific things.
 
 ---
 
-structure:
+## 🧱 Project Structure
 
 ```
-  widgets/
-    core/         <--- core plugin logic
-      component/  <--- core logic components
-      services/   <--- api calls, etc.
-      settings/   <--- plugin settings configuration
-      utils/      <--- utilities
-    shared/       <--- Shared components, settings, utils, etc.
-    UI/           <--- UI layer of the plugin
-    mongo/        <--- Directory for mongo db image
+widgets/
+├── core/                      # Core plugin logic
+│   ├── component/             # Core logic components
+│   ├── services/              # API calls, business logic
+│   ├── settings/              # Plugin settings
+│   └── utils/                 # Utilities and helpers
+├── shared/                    # Shared components, settings, utils
+├── UI/                        # UI layer of the plugin
+└── mongo/                     # MongoDB image and config
+└── redirection-page/          # A minimal page that redirects directly to a RemNote "rem"
 ```
 
 ---
 
-branch naming convention:
+## 🛠️ Requirements
 
-`type/number-name`
+### 📦 Install MongoDB
 
-`feat/#2/add-rending-reminders`
+Follow the official MongoDB installation guide **👉 [MongoDB Installation Manual](https://www.mongodb.com/docs/manual/installation/)**
 
-index.html - this is simple html site that redirects directly to rem in the application
+### 🐳 Install Docker
+
+Official Docker Documentation **👉 [Docker Docs](https://docs.docker.com/get-started/)**
+
+### 📦 Node
+
+If you use `nvm` you can just run the command `nvm use`. It will switch to the correct version of node.
 
 ---
 
-# Known issues
+## 🚀 Getting Started
 
-`cmd+z` doesn't work - it will not remove your reminder from server unless you reload the app, or update it manually.
-
-# Docker
-
-## 1 Build the image
-
-Create .env.prod file from .env.template
-Keep in mind that mongo has different path for docker versions so this `MONGODB_URI=mongodb://localhost:27017/db_name` would be this `mongodb://mongo:27017/db_name`
-
-To build an image you have to go to sever and `rm -rf dist` then `pnpm build` then you can build and run a docker image via:
+1️⃣ Install packages
 
 ```bash
+pnpm install
+```
+
+2️⃣ Run the plugin in development mode:
+
+```bash
+cd plugin
+pnpm dev
+```
+
+3️⃣ Run server in development mode
+
+```bash
+cd server
+pnpm dev
+```
+
+---
+
+## 🐳 Docker Guide
+
+### 1️⃣ Build the Image
+
+Create a `.env.prod` file based on `.env.template`.
+
+> **Note:** MongoDB connection string differs for Docker:
+>
+> - Local: `mongodb://localhost:27017/db_name`
+> - Docker: `mongodb://mongo:27017/db_name`
+
+To build the image:
+
+```bash
+cd server
+rm -rf dist
+pnpm build
+cd ..
 docker compose --env-file .env up
-# or
+# or for production:
 docker compose --env-file .env.prod up
 ```
 
-## 2 Tag the image
+---
 
-Then you have to tag your images
+### 2️⃣ Tag the Image
 
-```
-docker tag <image_id> docker_hub_username/repository_name:tagName
-```
-
-> - application_name is a repository name. There you have to have server & mongo image
-
-## 3 Push the image
-
-then you can push it to docker hub
-
-```
-docker push docker_hub_username/repository_name_:tag
+```bash
+docker tag <image_id> dockerhub_username/repository_name:tag
 ```
 
-## 4 Pull the image
+---
 
-then pull the image on the server
+### 3️⃣ Push the Image
 
-```
-docker pull docker_hub_username/repository_name:tag-name
-```
-
-Then you can run the image on the vps, to do that use `docker.compose.vps.yml` it's modified composer file to run image and load the variables. Before you do that make sure you have env file on the vps.
-
-Edit this line in `docker-compose.vps.yml`:
-
-```yml
-image: dockerhub_username/repository:tag
+```bash
+docker push dockerhub_username/repository_name:tag
 ```
 
-then you can run the image on your vps
+---
+
+### 4️⃣ Pull the Image on the VPS
+
+```bash
+docker pull dockerhub_username/repository_name:tag
+```
+
+### 5️⃣ Edit files and run containers
+
+Edit the `docker-compose.vps.yml` lines in:
+
+```yaml
+server:
+  image: dockerhub_username/repository_name:tag
+#...
+mongo:
+  image: dockerhub_username/repository_name:tag
+```
+
+These 2 lines should point to your docker images.
+
+Ensure `.env` file is present on the VPS as same as `docker-compose.yml` file, then run:
 
 ```bash
 docker compose --env-file .env up -d
 ```
+
+## 🌿 Branch Naming Convention
+
+Follow this format for branch names:
+
+`type/#issue-number/description-of-the-issue`
+
+**Example:**
+
+`feat/#2/add-rendering-reminders`
+
+---
+
+## 🐛 Known Issues
+
+- `Cmd + Z` does **not** undo deleted reminders on the server.  
+  To restore a reminder, you must **manually refresh** the app or **recreate** it.
+
+---
