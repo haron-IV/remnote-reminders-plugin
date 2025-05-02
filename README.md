@@ -35,13 +35,12 @@ structure:
       utils/      <--- utilities
     shared/       <--- Shared components, settings, utils, etc.
     UI/           <--- UI layer of the plugin
-
-
+    mongo/        <--- Directory for mongo db image
 ```
 
 ---
 
-branch names:
+branch naming convention:
 
 `type/number-name`
 
@@ -50,14 +49,6 @@ branch names:
 index.html - this is simple html site that redirects directly to rem in the application
 
 ---
-
-# Functionalities
-
-- add reminder to single rem
-- add reminder to selected rems
-- removing selected rems also removes reminders
-- Get notifications through telegram messages
-- Open Remnote app on desired rem when clicking on the notification
 
 # Known issues
 
