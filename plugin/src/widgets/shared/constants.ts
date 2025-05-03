@@ -15,5 +15,5 @@ export const DATE_FORMAT = 'dd/MM/yyyy'
 export const REMINDER_TEXT_CHARACTER_LIMIT = 390
 
 const DEV_API_URL = 'http://localhost:3000'
-const PROD_API_URL = 'http://188.68.232.55:3000'
+const PROD_API_URL = 'https://remnote-reminders-plugin.duckdns.org'
 export const API_URL = PROD_API_URL // Just change this value if you wan to test it differently
