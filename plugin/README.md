@@ -37,6 +37,7 @@
 
 ## Or watch te video
 
+
 [![Watch the video](https://raw.githubusercontent.com/haron-IV/remnote-reminders-plugin/9d570c74c6b73af4c4eb73ff500fb78a33d5421a/plugin/docs/demo_thumbnail.png)](https://vimeo.com/1081007567)
 
 ## 🐞 Found a Bug or Have Feedback? 👉 [Open the Feedback Form](https://tally.so/r/3qgQyg)
