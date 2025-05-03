@@ -10,6 +10,8 @@ services:
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
       - MONGODB_URI=${MONGODB_URI}
       - SCHEDULER_INTERVAL_MS=${SCHEDULER_INTERVAL_MS}
+    volumes:
+      - ./logs:/app/server/logs
     restart: always
 
   mongo:
