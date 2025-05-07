@@ -140,6 +140,29 @@ Follow this format for branch names:
 
 ---
 
+## 💽 Backup
+
+In order to backup the db data you just have to use `scripts/backup.sh`. Basically you have to move it to your VPS. It will make a dump and copy it. If there is any error while running the script you probably have to create `backup` directory. You can also use crontab to make backups automatically.
+
+```bash
+crontab -e
+# and paste it will run once per 5 minutes
+*/5 * * * * /home/application/backup.sh
+```
+
+```bash
+# set sudo command to be called without password
+sudo visudo
+# than set it (application is an user on vps)
+application ALL=(ALL) NOPASSWD: /home/applicattion/backup.sh
+```
+
+Set execution rights for the script
+
+```bash
+chmod +x /home/application/backup.sh
+```
+
 ## 🐛 Known Issues
 
 - `Cmd + Z` does **not** undo deleted reminders on the server.  
